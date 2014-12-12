@@ -1,21 +1,18 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include "dyn_str.h"
 
-void process_file(FILE *fp);
+typedef struct {
+    unsigned int word_count;
+} ProcessResults;
 
-int main(void) {
-    process_file(stdin);
-    return 0;
-}
-
-void process_file(FILE *fp) {
-    // int length = 0;
-    // int word_count = 0;
-    // bool last_char_was_whitespace = false;
-
-    DynStr string;
-    dyn_str_init(&string);
+/*
+ * Read file as string to *string, while calculating various statistics from it.
+ */
+ProcessResults process_file(FILE *fp, DynStr *string) {
+    ProcessResults res;
+    bool last_char_was_whitespace = true;
 
     while (true) {
         int input_char_int = getc(fp);
@@ -25,10 +22,32 @@ void process_file(FILE *fp) {
 
         unsigned char input_char = (unsigned char) input_char_int;
         dyn_str_append(&string, input_char);
+
+        if (last_char_was_whitespace && !isspace(input_char)) {
+            res.word_count += 1;
+        }
+
+        last_char_was_whitespace = isspace(input_char);
     }
 
-    printf(string.content);
+    return res;
+}
+
+void print_stats(ProcessResults *results, DynStr *string) {
+    printf("Output: ");
+    dyn_str_print_reverse(&string, stdout);
     printf("\n");
+    printf("Words: %u\n", results->word_count);
+    printf("Length: %zd\n", string->length);
+}
+
+int main(void) {
+    DynStr string;
+    dyn_str_init(&string);
+
+    ProcessResults results = process_file(stdin, &string);
+    print_stats(&results, &string);
 
     dyn_str_free(&string);
+    return 0;
 }
