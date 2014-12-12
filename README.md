@@ -22,19 +22,19 @@ Or, alternatively, if you'd rather not use ``cmake`` for such a trivial program,
 Run the following in directory where you compiled the binary:
 
     $ echo -n "hai linux" | ./words
-    Output: xunil iah
+    Reverse: xunil iah
     Words: 2
     Length: 9
 
     $ echo -n "nisumaa oli isäsi ilo aamusin" | ./words
-    Output: nisumaa oli isäsi ilo aamusin
+    Reverse: nisumaa oli isäsi ilo aamusin
     Words: 5
     Length: 29
 
 Or you can use ```<<<``` to redirect a string to stdin, but it seems to add a newline to the end unlike ```echo -n```:
 
     $ ./words <<< "Hello!"
-    Output:
+    Reverse:
     !elloH
     Words: 1
     Length: 7
@@ -42,7 +42,7 @@ Or you can use ```<<<``` to redirect a string to stdin, but it seems to add a ne
 You use files as an input also:
 
     $ ./words < HelloWorld.txt
-    Output: 
+    Reverse: 
     !dlrow ,olleH
     Words: 2
     Length: 14
@@ -51,7 +51,7 @@ Or just type to standard input and press Ctrl+D when you're ready:
 
     $ ./words
     Hello, world!
-    Output: 
+    Reverse: 
     !dlrow ,olleH
     Words: 2
     Length: 14

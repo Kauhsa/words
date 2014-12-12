@@ -38,7 +38,7 @@ ProcessResults process_file(FILE *fp, DynStr *string) {
 }
 
 void print_stats(ProcessResults *results, DynStr *string) {
-    wprintf(L"Output: ");
+    wprintf(L"Reverse: ");
     dyn_str_print_reverse(string, stdout);
     wprintf(L"\n");
     wprintf(L"Words: %u\n", results->word_count);
